@@ -1,3 +1,13 @@
 .profile-pic-img {
   max-width: 100%;
 }
+
+#search-bar {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+#search:hover {
+  background-color: green;
+  cursor: pointer;
+}
