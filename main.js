@@ -1,21 +1,23 @@
 
 
 let users = [];
+let maxLength = 8;
 
 function addUser (user) {
-  //add user to users array
-  //if array is certain length cut some off the end
+ let userInfo = {
+  name: user.author.login || null,
+  profileURL: user.author.avatar_url || null
+ }
+ users.unshift(userInfo);
+ if(users.length > maxLength) {
+  users.pop();
+ }
+ renderUsers();
 }
 
 function fetch(query) {//finish ajac
-  $.ajax({
-    method: "GET",
-    success: function (data) {
-      addUser(data);
-    },
-    error: function() {
-
-    }
+  $.get("https://api.github.com/repos/facebook/react/commits/" + query, function (data) {
+    addUser(data);
   })
 }
 
@@ -26,6 +28,8 @@ $('#search').click(function () {
 })
 
 function renderUsers() {
+  $('.github-users').empty();
+
   let source = $('#user-template').html();
 
   let template = Handlebars.compile(source);
